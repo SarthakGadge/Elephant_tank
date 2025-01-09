@@ -1,6 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 from userauth.models import Investor
 from .models import InvestorFunding, InvestorInterest
+from student.serializers import IdeaSubmissionSerializer
 
 class InvestorSerializer(ModelSerializer):
     class Meta:
@@ -20,3 +21,9 @@ class InvestorFundingSerializer(ModelSerializer):
         fields = '__all__'
         depth = 1
     
+class SelfInvestorSerailizer(ModelSerializer):
+    idea = IdeaSubmissionSerializer()  # Nest the IdeaSubmission serializer
+
+    class Meta:
+        model = InvestorInterest
+        fields = ['id', 'idea', 'datetime']

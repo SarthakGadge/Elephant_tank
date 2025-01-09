@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import AllApprovedInvestors, GetGroupParticipant, GetSingleParticipant, GetIdeaSubmission, InvestorDataAPIView, SelfInvestorData, SendMailFromInvestorToInvest, IdeaStatus, ProjectDetail, ProjectDetailView, AISummary, ChangeStatus, AllProjects, SendMailFromInvestorToShowInterest
+from .views import AllApprovedInvestors, GetGroupParticipant, GetSingleParticipant, GetIdeaSubmission, InvestorDataAPIView, SelfInvestorData, SendMailFromInvestorToInvest, IdeaStatus, ProjectDetail, ProjectDetailView, AISummary, ChangeStatus, AllProjects, SendMailFromInvestorToShowInterest, UninterestedProjectsAPIView
 
 urlpatterns = [
     path("get_idea_submission/", GetIdeaSubmission.as_view(),
@@ -23,6 +23,7 @@ urlpatterns = [
          name='SendMailFromInvestorToInvest'),
     path('approved_investors/', AllApprovedInvestors.as_view(),
          name='SendMailFromInvestorToInvest'),
-    path("self_investor/<int:inve_id>/", SelfInvestorData.as_view(), name='SelfInvestorData')
+    path("self_investor/<int:inve_id>/", SelfInvestorData.as_view(), name='SelfInvestorData'),
+    path("uninterested_projects/<int:investor_id>/", UninterestedProjectsAPIView.as_view(), name='SelfInvestorData'),
 
 ]

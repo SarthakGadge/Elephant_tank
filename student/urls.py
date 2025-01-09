@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import GetGroupParticipantAndIdeas, ProjectInfoUpd, SingleParticipantView, IdeaSubmissionView, GetAllProjectInfo, GetSingleParticipantAndIdeas, GetStudentProjectInfo, GetStudentGroupAndIdeas, GetGroupRequest, AllGroups,  GroupParticipantView, IdeaSubmissionStatus, JoinGroupView, CreateGroupView, UpdateMembershipRequestStatusView
+from .views import GetGroupParticipantAndIdeas, ProjectInfoUpd, ShowMyInterestedInvestors, SingleParticipantView, IdeaSubmissionView, GetAllProjectInfo, GetSingleParticipantAndIdeas, GetStudentProjectInfo, GetStudentGroupAndIdeas, GetGroupRequest, AllGroups,  GroupParticipantView, IdeaSubmissionStatus, JoinGroupView, CreateGroupView, UpdateMembershipRequestStatusView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -30,6 +30,8 @@ urlpatterns = [
          name='SendMailFromInvestorToInvest'),
     path('all_group_participants/', GetGroupParticipantAndIdeas.as_view(),
          name='SendMailFromInvestorToInvest'),
+    path('interested_investors/<int:stud_id>/', ShowMyInterestedInvestors.as_view(),
+         name='ShowMyInterestedInvestors'),
 ]
 
 if settings.DEBUG:

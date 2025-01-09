@@ -1,5 +1,7 @@
+from investor.models import InvestorInterest
 from student.models import SingleParticipant, GroupParticipant, IdeaSubmission
 from rest_framework import serializers
+from userauth.models import Investor
 from .models import GroupMembershipRequest
 from .models import Group
 
@@ -39,3 +41,17 @@ class GroupSerializer(serializers.ModelSerializer):
         model = Group
         fields = ['id', 'group_name', 'created_by',
                   'description', 'is_open_for_joining', 'created_at']
+
+
+class InvestorSerializerForStudentInterest(serializers.ModelSerializer):
+    class Meta:
+        model = Investor
+        fields = ["id", "full_name", "email", "phone_number", "domain", "linked_url", "gender", "organisation"]
+
+
+class InvestorForStudentSerailizer(serializers.ModelSerializer):
+    investor = InvestorSerializerForStudentInterest()  
+
+    class Meta:
+        model = InvestorInterest
+        fields = ['id', 'investor', 'datetime']

@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import connection
 from django.shortcuts import render
+from investor.models import InvestorInterest
 from student.models import SingleParticipant, GroupParticipant, IdeaSubmission
 from student.serializers import SingleParticipantSerializer, IdeaSubmissionSerializer
 from rest_framework.views import APIView
@@ -11,7 +12,7 @@ from rest_framework import status
 from userauth.models import Student
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny
-from userauth.models import Student
+from userauth.models import Student, Investor
 from student.models import SingleParticipant, GroupParticipant, IdeaSubmission
 import random
 from .models import Group
@@ -19,7 +20,22 @@ from .serializers import GroupSerializer
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import status
 from .models import Group, GroupMembershipRequest
-from .serializers import GroupMembershipRequestSerializer
+from .serializers import GroupMembershipRequestSerializer, InvestorForStudentSerailizer
+
+
+class ShowMyInterestedInvestors(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request, stud_id):
+        try:
+            stud = IdeaSubmission.objects.get(stud_id=stud_id)
+            investors = InvestorInterest.objects.filter(idea_id = stud.id)
+            serializer = InvestorForStudentSerailizer(investors, many=True)
+            return Response({"msg":serializer.data}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"msg":str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+        
+        
 
 
 class ProjectInfoUpd(APIView):

@@ -15,10 +15,37 @@ from student.models import IdeaSubmission, SingleParticipant, GroupParticipant
 from rest_framework.permissions import AllowAny
 from userauth.utils import send_funding_confirmation_to_investor, send_funding_email_to_student, send_funding_confirmation_to_investor_about_funding, send_funding_success_email_to_student
 from userauth.models import Investor
-from .serializers import InvestorSerializer
+from .serializers import InvestorSerializer, SelfInvestorSerailizer
 from .models import InvestorFunding, InvestorInterest
 from .serializers import InvestorInterestSerializer, InvestorFundingSerializer
 from django.utils.timezone import now
+
+
+
+class UninterestedProjectsAPIView(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request, investor_id, *args, **kwargs):
+        try:
+        # Get the investor object (or return 404 if not found)
+            investor = get_object_or_404(Investor, id=investor_id)
+
+            # Get all the projects the investor has already shown interest in
+            interested_projects = InvestorInterest.objects.filter(
+                investor=investor
+            ).values_list('idea_id', flat=True)
+
+            # Get all projects, excluding the ones the investor is already interested in
+            uninterested_projects = IdeaSubmission.objects.exclude(id__in=interested_projects)
+
+            # Serialize the data
+            serializer = IdeaSubmissionSerializer(uninterested_projects, many=True)
+
+            # Return the response
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"msg": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
 
 
 class AllApprovedInvestors(APIView):
@@ -44,6 +71,10 @@ class SendMailFromInvestorToShowInterest(APIView):
 
             if not idea_id or not investor_id:
                 return Response({"msg": "Investor_id and idea_id must be provided."}, status=status.HTTP_400_BAD_REQUEST)
+            
+            instance = InvestorInterest.objects.filter(investor_id=investor_id)
+            if instance.filter(idea_id=idea_id).exists():
+                return Response({"msg":"You have already shown interest in this project"}, status=status.HTTP_400_BAD_REQUEST)
 
             instance = IdeaSubmission.objects.select_related(
                 'stud_id').get(id=idea_id)
@@ -400,10 +431,10 @@ class SelfInvestorData(APIView):
             inv_interest = InvestorInterest.objects.filter(investor_id=inve_id)
             investor_funded = InvestorFunding.objects.filter(investor_id=inve_id)
             
-            fund_serializer = InvestorFundingSerializer(investor_funded, many=True)
-            interest_serializer = InvestorInterestSerializer(inv_interest, many=True)
+            # fund_serializer = InvestorFundingSerializer(investor_funded, many=True)
+            interest_serializer = SelfInvestorSerailizer(inv_interest, many=True)
             
-            return Response({"interested":interest_serializer.data, "funded":fund_serializer.data}, status=status.HTTP_200_OK)
+            return Response({"interested":interest_serializer.data}, status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"msg":str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
