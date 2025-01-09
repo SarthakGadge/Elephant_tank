@@ -7,6 +7,7 @@ class InvestorInterest(models.Model):
     investor = models.ForeignKey(Investor, on_delete=models.CASCADE)
     idea = models.ForeignKey(IdeaSubmission, on_delete=models.CASCADE)
     datetime = models.DateTimeField(auto_now_add=True)
+    amount_range = models.CharField(max_length=50)
 
     def __str__(self):
         return f"{self.investor.full_name} interested in {self.idea.title}"

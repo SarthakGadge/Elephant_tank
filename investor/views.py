@@ -68,9 +68,10 @@ class SendMailFromInvestorToShowInterest(APIView):
             idea_id = request.data.get('idea_id')
             investor_id = request.data.get('investor_id')
             message = request.data.get('message')
+            amount_range = request.data.get('amount_range')
 
-            if not idea_id or not investor_id:
-                return Response({"msg": "Investor_id and idea_id must be provided."}, status=status.HTTP_400_BAD_REQUEST)
+            if not idea_id or not investor_id or not amount_range:
+                return Response({"msg": "Investor_id, idea_id and amount_range must be provided."}, status=status.HTTP_400_BAD_REQUEST)
             
             instance = InvestorInterest.objects.filter(investor_id=investor_id)
             if instance.filter(idea_id=idea_id).exists():
@@ -93,7 +94,8 @@ class SendMailFromInvestorToShowInterest(APIView):
             data = InvestorInterest.objects.create(
                 datetime = now(),
                 idea_id = instance.id,
-                investor_id = inve_instance.id
+                investor_id = inve_instance.id,
+                amount_range=amount_range
             )
             
             data.save()

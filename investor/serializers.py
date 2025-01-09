@@ -26,4 +26,4 @@ class SelfInvestorSerailizer(ModelSerializer):
 
     class Meta:
         model = InvestorInterest
-        fields = ['id', 'idea', 'datetime']
+        fields = ['id', 'idea', 'datetime', 'amount_range']

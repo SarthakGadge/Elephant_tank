@@ -63,10 +63,6 @@ def generate_and_send_otp(user):
 
     return True
 
-img_base64 = image_to_base64("userauth/static/images/Image.png")
-with open("decoded_test_image.png", "wb") as file:
-    file.write(base64.b64decode(img_base64))
-
 def mail_after_verifiation(stud_email):
     img_base64  = image_to_base64("userauth/static/images/Image.png")
     subject = 'Email Verified Successfully!'

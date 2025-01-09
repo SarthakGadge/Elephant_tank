@@ -54,4 +54,4 @@ class InvestorForStudentSerailizer(serializers.ModelSerializer):
 
     class Meta:
         model = InvestorInterest
-        fields = ['id', 'investor', 'datetime']
+        fields = ['id', 'investor', 'datetime','amount_range']
