@@ -1,0 +1,13 @@
+Django==4.1.7
+djangorestframework==3.14.0
+djangorestframework-simplejwt
+mysqlclient
+django-cors-headers
+PyPDF2>=3.0.0
+transformers>=4.30.0
+torch>=2.0.0  # Required for transformers
+openai==0.28
+razorpay
+python-decouple
+# django-storagesboto3
+requests

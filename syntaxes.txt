@@ -1,0 +1,10 @@
+python manage.py create_admin --username admin --email admin@example.com --password password
+python manage.py create_admin --username admin --email amit@tdtl.world --password admin@tdtl
+python manage.py create_admin --username admin --email jasmita@dyp.com --password admin@dyp
+python manage.py create_admin --username admin --email shalaka@dyp.com --password admin@dyp
+
+python -m venv venv
+
+venv\Scripts\activate
+
+pip install -r requirements.txt
