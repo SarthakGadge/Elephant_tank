@@ -11,6 +11,7 @@ from userauth.models import Investor
 from userauth.models import Student
 from .serializers import StudentRegistration
 from userauth.utils import approval_mail, project_approved, investor_mail_for_approval
+from form.models import Applicant
 
 
 
@@ -241,6 +242,8 @@ class AdminDashboard(APIView):
         fashion_lifestyle_count = IdeaSubmission.objects.filter(project_type='Fashion and Lifestyle').count()
             
         others_count = IdeaSubmission.objects.filter(project_type='Others').count()
+        
+        applicants = Applicant.objects.count()
 
         return Response({
             "single_participant_count": single_count,
@@ -248,6 +251,7 @@ class AdminDashboard(APIView):
             "total_count_of_single_and_group_participants": total_count,
             "investor_count": investor_count,
             "total_studens": students,
+            "innovate_X_count_of_applicants": applicants,
             "AI/ML": ai_ml,
             "Real Estate": real_estate_count,
             "Healthcare and Biotech": healthcare_biotech_count,
