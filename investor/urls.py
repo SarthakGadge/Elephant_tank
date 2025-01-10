@@ -15,10 +15,14 @@ urlpatterns = [
     path('pdf-summary/', AISummary.as_view(), name='pdf_summary'),
     # path('change_status/<int:pk>/', ChangeStatus.as_view(), name='change_status'),
     path('all_projects/', AllProjects.as_view(), name='change_status'),
+    
+    
     path('fund_project/', SendMailFromInvestorToInvest.as_view(),
          name='SendMailFromInvestorToInvest'),
     path('show_interest/', SendMailFromInvestorToShowInterest.as_view(),
          name='SendMailFromInvestorToInvest'),
+    
+    
     path('investor_data/', InvestorDataAPIView.as_view(),
          name='SendMailFromInvestorToInvest'),
     path('approved_investors/', AllApprovedInvestors.as_view(),

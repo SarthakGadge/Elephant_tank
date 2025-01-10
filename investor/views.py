@@ -13,7 +13,7 @@ from rest_framework import status
 import json
 from student.models import IdeaSubmission, SingleParticipant, GroupParticipant
 from rest_framework.permissions import AllowAny
-from userauth.utils import send_funding_confirmation_to_investor, send_funding_email_to_student, send_funding_confirmation_to_investor_about_funding, send_funding_success_email_to_student
+from userauth.utils import email_interst_investor, email_of_interest_student, send_funding_confirmation_to_investor_about_funding, send_funding_success_email_to_student
 from userauth.models import Investor
 from .serializers import InvestorSerializer, SelfInvestorSerailizer
 from .models import InvestorFunding, InvestorInterest
@@ -100,10 +100,10 @@ class SendMailFromInvestorToShowInterest(APIView):
             
             data.save()
 
-            send_funding_success_email_to_student(
+            email_of_interest_student(
                 investor_name=investor_name, investor_email=investor_email, stud_name=name, student_email=email, description=message, linkedin_url=investor_linkedIn)
 
-            send_funding_confirmation_to_investor_about_funding(
+            email_interst_investor(
                 investor_name=investor_name, investor_email=investor_email, stud_name=name, student_email=email)
 
             # instance.status = 'interested'
@@ -148,10 +148,10 @@ class SendMailFromInvestorToInvest(APIView):
             #     idea_id = 
             # )
                         
-            send_funding_email_to_student(
+            send_funding_success_email_to_student(
                 investor_name=investor_name, investor_email=investor_email, stud_name=name, student_email=email, description=message, linkedin_url=investor_linkedIn)
 
-            send_funding_confirmation_to_investor(
+            send_funding_confirmation_to_investor_about_funding(
                 investor_name=investor_name, investor_email=investor_email, stud_name=name, student_email=email)
 
             return Response({"msg": "Idea is funded and the student is notified"}, status=status.HTTP_200_OK)

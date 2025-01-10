@@ -10,6 +10,7 @@ from rest_framework.response import Response
 from rest_framework import status
 # Create your views here.
 from userauth.models import Student
+from investor.Elephant_aI import evaluate_business_pitch
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny
 from userauth.models import Student, Investor
@@ -450,7 +451,7 @@ class SingleParticipantView(APIView):
             ppt = request.FILES.get('ppt_files')
             video_file = request.FILES.get('video_files')
 
-            if not stud_id or not project_type or not title or not description:
+            if not stud_id or not project_type or not title or not description or not idea:
                 return Response({"error": "Missing required fields"}, status=status.HTTP_400_BAD_REQUEST)
 
             try:
@@ -462,8 +463,11 @@ class SingleParticipantView(APIView):
             #     stud_id=student,
                 
             # )
-
-            score = random.randint(75, 95)
+            
+            result = evaluate_business_pitch(idea)
+            print(result)
+            
+            score = result
             
             idea = IdeaSubmission.objects.create(
                 project_type=project_type,
@@ -519,9 +523,9 @@ class GroupParticipantView(APIView):
             project_type = request.data.get('project_type')
             title = request.data.get('title')
             description = request.POST.get('description')
-            idea = request.FILES.get('idea')
-            ppt = request.FILES.get('ppt')
-            video_file = request.FILES.get('video_file')
+            idea = request.FILES.get('pdf_files')
+            ppt = request.FILES.get('ppt_files')
+            video_file = request.FILES.get('video_files')
 
             # required_fields = ['stud_id', 'name_of_group',
             #                    'number_of_member', 'project_type']
@@ -530,7 +534,7 @@ class GroupParticipantView(APIView):
             #     if not request.data.get(field):
             #         return Response({'msg': f'{field.capitalize()} is required'}, status=status.HTTP_400_BAD_REQUEST)
 
-            if not stud or not name_of_group or not project_type or not description or not title:
+            if not stud or not name_of_group or not project_type or not description or not title or not idea:
                 return Response({"error": "Missing required fields"}, status=status.HTTP_400_BAD_REQUEST)
 
             # try:

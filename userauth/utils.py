@@ -75,9 +75,8 @@ def mail_after_verifiation(stud_email):
         
         <img src="data:image/png;base64,{img_base64}" alt="QR Code" style="width:200px;height:200px;" />
         
-        <p>Warm regards,<br/>        
-        <p>Warm regards,<br/>
-        <strong>The Elephant Tank Team</strong></p>
+        <p>Thank you,<br/>
+    The Elephant Tank Team.</p>
     </body>
     </html>
 
@@ -106,8 +105,8 @@ def forgot_pass_mail(mail, otp):
     <h3 style="color: #E94E77;">Your OTP: <strong>{otp}</strong></h3>
     <p>If you did not request this, please ignore this email or contact support immediately.</p>
     
-    <p>Warm regards,<br/>
-    <strong>The Elephant Tank Team</strong></p>
+    <p>Thank you,<br/>
+    The Elephant Tank Team.</p>
 </body>
 </html>
 '''
@@ -134,8 +133,8 @@ def resend_otp(email, otp):
     <h3 style="color: #E94E77;">Your OTP: <strong>{otp}</strong></h3>
     <p>If you did not request this, please ignore this email or contact support immediately.</p>
     
-    <p>Warm regards,<br/>
-    <strong>The Elephant Tank Team</strong></p>
+    <p>Thank you,<br/>
+    The Elephant Tank Team.</p>
 </body>
 </html>
 '''
@@ -153,9 +152,9 @@ def resend_otp(email, otp):
     return True
 
 ########################################################################################################################################################################################################################################################################################
-#Mail about Funding and interested
+#Interested Email
 
-def send_funding_email_to_student(investor_name, investor_email, stud_name, student_email, description=None, linkedin_url=None):
+def email_of_interest_student(investor_name, investor_email, stud_name, student_email, description=None, linkedin_url=None):
     subject = 'Interesed Investor'
     message = f'''
     <html>
@@ -171,8 +170,8 @@ def send_funding_email_to_student(investor_name, investor_email, stud_name, stud
 
         <p>We are proud of your achievement and wish you the very best as you take this exciting step forward. Keep innovating and inspiring!</p>
 
-        <p>Warm regards,<br/>
-        <strong>The Elephant Tank Team</strong></p>
+        <p>Thank you,<br/>
+    The Elephant Tank Team.</p>
     </body>
     </html>
     '''
@@ -190,8 +189,8 @@ def send_funding_email_to_student(investor_name, investor_email, stud_name, stud
     return True
 
 
-def send_funding_confirmation_to_investor(investor_name, investor_email, stud_name, student_email):
-    subject = 'Verify Your Email'
+def email_interst_investor(investor_name, investor_email, stud_name, student_email):
+    subject = 'Interest Intimation'
     message = f'''
     <html>
     <body>
@@ -205,7 +204,9 @@ def send_funding_confirmation_to_investor(investor_name, investor_email, stud_na
         <p>If you have any further queries or require assistance, feel free to reach out to us at any time.</p>
 
         <p>Thank you for your support in fostering innovation and empowering bright minds.<br/>
-        <strong>The Elephant Tank Team</strong></p>
+        
+        <p>Thank you,<br/>
+    The Elephant Tank Team.</p>
     </body>
     </html>
     '''
@@ -221,6 +222,9 @@ def send_funding_confirmation_to_investor(investor_name, investor_email, stud_na
         return False
 
     return True
+
+#################################################################################################################################################################################
+#Funding Mails
 
 def send_funding_success_email_to_student(investor_name, investor_email, stud_name, student_email, description=None, linkedin_url=None):
     subject = 'Investor Funding Confirmation'
@@ -238,8 +242,8 @@ def send_funding_success_email_to_student(investor_name, investor_email, stud_na
 
         <p>Congratulations on this incredible achievement! We hope this investment helps you bring your idea to life. Keep striving and innovating!</p>
 
-        <p>Warm regards,<br/>
-        <strong>The Elephant Tank Team</strong></p>
+        <p>Thank you,<br/>
+    The Elephant Tank Team.</p>
     </body>
     </html>
     '''
@@ -273,8 +277,8 @@ def send_funding_confirmation_to_investor_about_funding(investor_name, investor_
 
         <p>Thank you for supporting and empowering innovation. Your investment truly makes a difference!</p>
 
-        <p>Warm regards,<br/>
-        <strong>The Elephant Tank Team</strong></p>
+        <p>Thank you,<br/>
+    The Elephant Tank Team.</p>
     </body>
     </html>
     '''
@@ -308,8 +312,8 @@ def investor_mail_for_approval(investor_mail, investor_name):
         
         <img src="data:image/png;base64,{img_base64}" alt="QR Code" style="width:200px;height:200px;" />
         
-        <p>Warm regards,<br/>
-        <strong>The Elephant Tank Team</strong></p>
+       <p>Thank you,<br/>
+    The Elephant Tank Team.</p>
     </body>
     </html>
     '''
@@ -341,8 +345,8 @@ def approval_mail(stud_name, student_email):
         
         <img src="data:image/png;base64,{img_base64}" alt="QR Code" style="width:200px;height:200px;" />
         
-        <p>Warm regards,<br/>
-        <strong>The Elephant Tank Team</strong></p>
+        <p>Thank you,<br/>
+    The Elephant Tank Team.</p>
     </body>
     </html>
     '''
@@ -376,8 +380,8 @@ def project_approved(email, name):
         
         <img src="data:image/png;base64,{img_base64}" alt="QR Code" style="width:200px;height:200px;" />
         
-        <p>Warm regards,<br/>
-        <strong>The Elephant Tank Team</strong></p>
+        <p>Thank you,<br/>
+    The Elephant Tank Team.</p>
     </body>
     </html>
     '''

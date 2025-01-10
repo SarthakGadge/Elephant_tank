@@ -7,30 +7,27 @@ from io import BytesIO
 
 openai.api_key = "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"
 
-def evaluate_business_pitch(pdf_path):
+def evaluate_business_pitch(file):
     try:
-
-        response = requests.get(pdf_path)
-        pdf_file = BytesIO(response.content)
+        # Read the file content
+        pdf_file = BytesIO(file.read())
+        
+        # Read PDF content using PyPDF2
         pdf_reader = PyPDF2.PdfReader(pdf_file)
         full_text = ""
-
-
         for page in pdf_reader.pages:
             full_text += page.extract_text()
 
+        # Summarization
         summarizer = pipeline("summarization", model="facebook/bart-base")
-
-
         max_chunk = 1000
         chunks = [full_text[i:i + max_chunk] for i in range(0, len(full_text), max_chunk)]
-
         summarized_text = ""
         for chunk in chunks:
             summary = summarizer(chunk, max_length=100, min_length=30, do_sample=False)
             summarized_text += summary[0]['summary_text'] + "\n"
 
-        
+        # Evaluation using OpenAI GPT
         response = openai.ChatCompletion.create(
             model="gpt-4",
             messages=[{
@@ -49,9 +46,9 @@ def evaluate_business_pitch(pdf_path):
             }]
         )
 
-
         response_content = response.choices[0].message.content
 
+        # Parse the response content as JSON
         try:
             evaluation = json.loads(response_content)
             return evaluation
@@ -63,7 +60,6 @@ def evaluate_business_pitch(pdf_path):
     except Exception as e:
         print(f"An error occurred: {e}")
         return None
-
 
 
 
