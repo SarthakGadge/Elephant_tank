@@ -42,6 +42,9 @@ class Student(models.Model):
     field_of_study = models.CharField(max_length=50)
     graduation_year = models.IntegerField()
     graduation_degree = models.CharField(max_length=150, null=True, blank=True )
+    is_group = models.BooleanField(default=False)
+    group_name = models.CharField(max_length=150, null=True, blank=True)
+    group_members = models.CharField(null=True, blank=True , max_length=350)
     post_graduation_degree = models.CharField(max_length=150, null=True, blank=True)
 
     def is_otp_valid(self):

@@ -53,16 +53,22 @@ class RegisterStudentView(APIView):
         graduation_degree = request.data.get('graduation_degree')
         post_graduation_degree = request.data.get('post_graduation_degree')
         linked_url = request.data.get('linked_url')
+        is_group = request.data.get('is_group')
+        group_name = request.data.get('group_name')
+        group_members = request.data.get('group_members')
 
         required_fields = [
             "full_name", "email", "password", "phone_number", "role", "institution",
-            "address", "postal_code", "country", "city", "state", "gender", "field_of_study", "graduation_year"
+            "address", "postal_code", "country", "city", "state", "gender", "field_of_study", "graduation_year","is_group"
         ]
 
         for field in required_fields:
             if not request.data.get(field):
                 return Response({'msg': f'{field.capitalize()} is required'}, status=status.HTTP_400_BAD_REQUEST)
 
+        if is_group not in ['True', 'False']:
+            return Response({'msg': 'is_group must be a boolean value'}, status=status.HTTP_400_BAD_REQUEST)
+        
         if not re.match(r'^\d{10}$', phone_number):
             return Response({'msg': 'Invalid phone number. Must be 10 digits.'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -71,6 +77,9 @@ class RegisterStudentView(APIView):
         
         if Student.objects.filter(phone_number=phone_number).exists():
             return Response({'msg': 'Phone number is already in use.'}, status=400)
+        
+        if int(group_members) > 4:
+            return Response({'msg': 'Group cannot have more than 4 members'}, status=400)
 
         user = User.objects.create(
             full_name=full_name,
@@ -91,7 +100,10 @@ class RegisterStudentView(APIView):
             field_of_study=field_of_study,
             graduation_year=graduation_year,
             graduation_degree=graduation_degree,
-            post_graduation_degree=post_graduation_degree
+            post_graduation_degree=post_graduation_degree,
+            is_group=is_group,
+            group_name=group_name,
+            group_members=group_members
         )
         user.save()
 
@@ -117,6 +129,7 @@ class RegisterInvestor(APIView):
         role = request.data.get('role')
         domain = request.data.get('domain')
         linked_url = request.data.get('linked_url')
+        
 
         required_fields = ['full_name', 'email', 'password',
                            'phone_number', 'organisation', 'role', 'gender', 'domain', 'linked_url']
