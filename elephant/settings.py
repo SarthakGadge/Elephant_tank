@@ -179,6 +179,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Set a limit on the maximum file size (in bytes)
+FILE_UPLOAD_MAX_MEMORY_SIZE = 31457280    # 50 MB (default: 2.5 MB)
+
+# Increase the maximum request size (useful for large file uploads)
+DATA_UPLOAD_MAX_MEMORY_SIZE = 31457280    # 50 MB (default: 2.5 MB)
+
+FILE_UPLOAD_HANDLERS = [
+    "django.core.files.uploadhandler.TemporaryFileUploadHandler",
+    "django.core.files.uploadhandler.MemoryFileUploadHandler",
+]
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -220,3 +231,16 @@ EMAIL_PORT = 587  # Use 465 if using SSL
 EMAIL_HOST_USER = "aa@thedatatechlabs.com"
 EMAIL_HOST_PASSWORD = "Tdtl@2024#"
 DEFAULT_FROM_EMAIL = "aa@thedatatechlabs.com"
+
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_HOST = "smtp.elephant-tank.com"  # Use the correct SMTP server address
+# EMAIL_PORT = 587  # Standard for TLS (SSL is typically 465, but you seem to be using 587 for TLS)
+# EMAIL_HOST_USER = "support@elephant-tank.com"  # Your Outlook email
+# EMAIL_HOST_PASSWORD = "Tdtl@2024#"  # The password or app password for the Outlook account
+# DEFAULT_FROM_EMAIL = "support@elephant-tank.com"  # Default sender email for your app
+
+ 
+
+
+# Email: support@elephant-tank.com
+# Password-:2024@Tdtl

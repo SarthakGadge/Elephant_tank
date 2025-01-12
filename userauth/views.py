@@ -56,6 +56,9 @@ class RegisterStudentView(APIView):
         is_group = request.data.get('is_group')
         group_name = request.data.get('group_name')
         group_members = request.data.get('group_members')
+        email2 = request.data.get('email2')
+        email3 = request.data.get('email3')
+        email4 = request.data.get('email4')
 
         required_fields = [
             "full_name", "email", "password", "phone_number", "role", "institution",
@@ -103,7 +106,10 @@ class RegisterStudentView(APIView):
             post_graduation_degree=post_graduation_degree,
             is_group=is_group,
             group_name=group_name,
-            group_members=group_members
+            group_members=group_members,
+            email2=email2,
+            email3=email3,
+            email4=email4,
         )
         user.save()
 

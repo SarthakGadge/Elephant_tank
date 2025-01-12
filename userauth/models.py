@@ -46,6 +46,10 @@ class Student(models.Model):
     group_name = models.CharField(max_length=150, null=True, blank=True)
     group_members = models.CharField(null=True, blank=True , max_length=350)
     post_graduation_degree = models.CharField(max_length=150, null=True, blank=True)
+    email1 = models.EmailField(max_length=50, validators=[EmailValidator()], null=True, blank=True)
+    email2 = models.EmailField(max_length=50, validators=[EmailValidator()], null=True, blank=True)
+    email3 = models.EmailField(max_length=50, validators=[EmailValidator()], null=True, blank=True)
+    email4 = models.EmailField(max_length=50, validators=[EmailValidator()], null=True, blank=True)
 
     def is_otp_valid(self):
         if self.otp and self.otp_expiry:
