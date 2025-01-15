@@ -11,6 +11,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from django.utils import timezone
 import random
+from .new_utils import check_and_reply
 from django.shortcuts import render
 import jwt
 from userauth.models import Student
@@ -113,10 +114,10 @@ class RegisterStudentView(APIView):
         )
         user.save()
 
-        if generate_and_send_otp(user):
-            return Response({'msg': "Verify your email to complete registration. OTP sent for account activation"})
+        if check_and_reply(user):
+            return Response({'msg': "Verify your email to complete registration. OTP sent for account activation"}, status=status.HTTP_201_CREATED)
         else:
-            return Response({"msg": "Error sending OTP. Please try again later."})
+            return Response({"msg": "Error sending OTP. Please try again later."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 # User2 = Investor

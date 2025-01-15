@@ -27,10 +27,16 @@ CORS_EXPOSE_HEADERS = [
     'Authorization',
 ]
 
-AWS_ACCESS_KEY_ID = 'AKIA47GB76VLKGOXHXSN'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'elephant-tank-bucket' 
-AWS_S3_REGION_NAME = 'ap-south-1'
+# AWS_ACCESS_KEY_ID = 'AKIA47GB76VLKGOXHXSN'
+# AWS_SECRET_ACCESS_KEY = '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'
+# AWS_STORAGE_BUCKET_NAME = 'elephant-tank-bucket' 
+# AWS_S3_REGION_NAME = 'ap-south-1'
+
+
+AWS_STORAGE_BUCKET_NAME = 'elephant-tank-s3bucket'  # Replace with your actual bucket name
+AWS_S3_REGION_NAME = 'us-east-1'
+AWS_ACCESS_KEY_ID = 'AKIA6G6EAEDIQXYL6SPI'
+AWS_SECRET_ACCESS_KEY =  "KiKvjpcTZbjxFOPpGR7+4BS1oDnuf1yGrEKKcQ+g"
 
 # Application definition
 
@@ -225,19 +231,20 @@ REST_FRAMEWORK = {
     ],
 }
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.hostinger.com"
-EMAIL_PORT = 587  # Use 465 if using SSL
-EMAIL_HOST_USER = "aa@thedatatechlabs.com"
-EMAIL_HOST_PASSWORD = "Tdtl@2024#"
-DEFAULT_FROM_EMAIL = "aa@thedatatechlabs.com"
-
 # EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# EMAIL_HOST = "smtp.elephant-tank.com"  # Use the correct SMTP server address
-# EMAIL_PORT = 587  # Standard for TLS (SSL is typically 465, but you seem to be using 587 for TLS)
-# EMAIL_HOST_USER = "support@elephant-tank.com"  # Your Outlook email
-# EMAIL_HOST_PASSWORD = "Tdtl@2024#"  # The password or app password for the Outlook account
-# DEFAULT_FROM_EMAIL = "support@elephant-tank.com"  # Default sender email for your app
+# EMAIL_HOST = "smtp.hostinger.com"
+# EMAIL_PORT = 587  # Use 465 if using SSL
+# EMAIL_HOST_USER = "aa@thedatatechlabs.com"
+# EMAIL_HOST_PASSWORD = "Tdtl@2024#"
+# DEFAULT_FROM_EMAIL = "aa@thedatatechlabs.com"
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+SMTP_SERVER = "smtp.office365.com"
+EMAIL_PORT = 465      # Standard for TLS (SSL is typically 465, but you seem to be using 587 for TLS)
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "support@elephant-tank.com"  # Your Outlook email
+EMAIL_HOST_PASSWORD = "Tdtl@2024"  # The password or app password for the Outlook account
+DEFAULT_FROM_EMAIL = "support@elephant-tank.com"  # Default sender email for your app
 
  
 

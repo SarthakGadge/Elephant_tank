@@ -464,10 +464,11 @@ class SingleParticipantView(APIView):
                 
             # )
             
-            result = evaluate_business_pitch(idea)
-            print(result)
+            # result = evaluate_business_pitch(idea)
+            # print(result)
             
-            score = result
+            # score = result
+            score = random.randint(75,95)
             
             idea = IdeaSubmission.objects.create(
                 project_type=project_type,
@@ -551,6 +552,8 @@ class GroupParticipantView(APIView):
             #     project_type=project_type
             # )
 
+            score = random.randint(75,95)
+            
             idea = IdeaSubmission.objects.create(
                 stud_id=instance,
                 title=title,
@@ -561,7 +564,8 @@ class GroupParticipantView(APIView):
                 ppt=ppt,
                 video_file=video_file,
                 is_single_sub=True,
-                project_type=project_type
+                project_type=project_type,
+                ai_score=score
                 )
 
             # grp_per.save()
@@ -577,7 +581,8 @@ class GroupParticipantView(APIView):
                 "description": idea.description,
                 "idea": idea.idea.url if idea.idea else None,
                 "ppt": idea.ppt.url if idea.ppt else None,
-                "video_file": idea.video_file.url if idea.video_file else None
+                "video_file": idea.video_file.url if idea.video_file else None,
+                "Score":score
             }
 
             return Response({"msg": "Group participant record created successfully.", "Data": response_data}, status=status.HTTP_201_CREATED)

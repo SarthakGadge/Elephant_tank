@@ -4,6 +4,7 @@ from django.core.mail import send_mail
 from django.utils import timezone
 from django.db import connection
 from django.conf import settings
+from django.core.mail import EmailMessage
 import os
 
 
@@ -55,6 +56,7 @@ def generate_and_send_otp(user):
     to_email = [user.email]
 
     try:
+        
         send_mail(subject, '', from_email, to_email,
                   fail_silently=False, html_message=message)
     except Exception as e:
@@ -299,23 +301,35 @@ def send_funding_confirmation_to_investor_about_funding(investor_name, investor_
 # All admin approvals
 
 def investor_mail_for_approval(investor_mail, investor_name):
-    subject = 'Investor account approved'
+    subject = 'Welcome Investor'
     img_base64  = image_to_base64("userauth/static/images/Image.png")
 
     message = f'''
     <html>
-    <body>
-        <h2 style="color: #4A90E2;">Congratulations! Your Account has been approved by the admin</h2>
-        <p>Dear {investor_name},</p>
-        <p>We are glad to inform you that your Investor account have been approved and we will be delighted to have you for the event,<p>
-        <p>just a reminder that the event is scheduled at 31 Jan and 1 Feb of 2024, Please scan the QR code to know more</p>
-        
-        <img src="data:image/png;base64,{img_base64}" alt="QR Code" style="width:200px;height:200px;" />
-        
-       <p>Thank you,<br/>
-    The Elephant Tank Team.</p>
-    </body>
-    </html>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f9f9f9;">
+<div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); padding: 20px;">
+<h2 style="color: #4A90E2; text-align: center;">🎉 Congratulations! 🎉</h2>
+<p>Dear <b>{investor_name}</b>,</p>
+<p>We’re delighted to inform you that your <b>Investor Account</b> has been approved! Welcome aboard as we embark on an exciting journey together. 🌟</p>
+<h3 style="color: #4A90E2;">Event Details:</h3>
+<p>📅 Mark your calendar! The event is scheduled for <b>January 31st and February 1st, 2024</b>.</p>
+<p>🔗 <b>Login & Explore:</b> Use the link below to access your account and learn more about the event:</p>
+<p style="text-align: center;">
+<a href="https://elephant-tank.com/Login@elephanttank/" 
+               style="color: #ffffff; background-color: #4A90E2; text-decoration: none; padding: 10px 20px; border-radius: 5px;">Login Now</a>
+</p>
+<p style="text-align: center;">or scan the QR code below:</p>
+<p style="text-align: center;">
+<img src="data:image/png;base64,{img_base64}" alt="QR Code" style="width: 200px; height: 200px; border: 1px solid #ddd; border-radius: 10px;" />
+</p>
+<p>We’re thrilled to have you as a part of our community and can’t wait for you to explore the opportunities ahead. 🚀</p>
+<p style="margin-top: 30px; text-align: center; font-size: 0.9em; color: #888;">
+            Thank you,<br/>
+<b>The Elephant Tank Team</b>
+</p>
+</div>
+</body>
+</html>
     '''
 
 
@@ -333,30 +347,76 @@ def investor_mail_for_approval(investor_mail, investor_name):
 
 def approval_mail(stud_name, student_email):
     img_base64  = image_to_base64("userauth/static/images/Image.png")
-    subject = 'Approval of Registration'
+    subject = 'Submit Your Idea'
     message = f'''
     <html>
-    <body>
-        <h2 style="color: #4A90E2;">Your Registration has been approved!</h2>
-        <p>Dear {stud_name},</p>
-        <p>We are glad to inform you that your registration have been approved for the mail "{student_email}" and we will be delighted to have you for the event,<p>
-        <p>just a reminder that the event is scheduled at 31 Jan and 1 Feb of 2024, Please scan the QR code to know more</p>
-        <p>You can login to the website using this url : https://elephant-tank.com/Login1234567890/ or scan the QR code below.</p>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f9f9f9;">
+    <div style="max-width: 600px; margin: 20px auto; background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); padding: 20px;">
+        <h2 style="color: #4A90E2; text-align: center;">🎉 Welcome Back to the Elephant Tank! 🎉</h2>
+        <p>Dear <b>{stud_name}</b>,</p>
+        <p>We’re thrilled to inform you that your registration has been <b>approved!</b> You’re now one step closer to embarking on your entrepreneurial journey with us. 🚀</p>
         
-        <img src="data:image/png;base64,{img_base64}" alt="QR Code" style="width:200px;height:200px;" />
+        <h3 style="color: #4A90E2;">What’s Next?</h3>
+        <p>It’s time to bring your ideas to life! Here’s how you can proceed:</p>
+        <ul style="background-color: #f1f1f1; padding: 15px; border-radius: 5px;">
+            <li><b>Participation:</b> You can participate <i>individually</i> or as a group (maximum group size: 4).</li>
+            <li><b>Idea Submission:</b> Share your innovative idea, including:</li> 
+            <ul style="margin-left: 20px;">
+                <li><b>Project Type</b></li>
+                <li><b>Project Title</b></li>
+                <li><b>Project Description</b></li>
+                <li><b>Supporting Documents:</b> PDF , PPT, if video.</li>
+            </ul>
+        </ul>
+        <p><b>Important:</b> Ensure your submission follows the format mentioned. Submit your ideas within <b>2-3 days</b> to stay on track!</p>
         
-        <p>Thank you,<br/>
-    The Elephant Tank Team.</p>
-    </body>
-    </html>
+        <h3 style="color: #4A90E2;">Event Details:</h3>
+        <p>📅 Mark your calendar! The event is scheduled for <b>January 31st and February 1st, 2024</b>.</p>
+        <p>🔗 <b>Login & Explore:</b> Use the link below to access your account and submit your ideas:</p>
+        <p style="text-align: center;">
+            <a href="https://elephant-tank.com/Login@elephanttank/" 
+               style="color: #ffffff; background-color: #4A90E2; text-decoration: none; padding: 10px 20px; border-radius: 5px;">Login Now</a>
+        </p>
+        <p style="text-align: center;">or scan the QR code below:</p>
+        <p style="text-align: center;">
+            <img src="data:image/png;base64,{img_base64}" alt="QR Code" style="width: 200px; height: 200px; border: 1px solid #ddd; border-radius: 10px;" />
+        </p>
+        
+        <p>We can’t wait to see your innovative ideas! Let’s make this event a milestone in your journey to becoming an entrepreneur. 🌟</p>
+        
+        <p style="margin-top: 30px; text-align: center; font-size: 0.9em; color: #888;">
+            Thank you,<br/>
+            <b>The Elephant Tank Team</b>
+        </p>
+    </div>
+</body>
+</html>
     '''
-
     from_email = settings.EMAIL_HOST_USER
     to_email = [student_email]
 
+    # Create email object
+    email = EmailMessage(subject, message, from_email, to_email)
+    email.content_subtype = 'html'
+
+    # Attach files
+    file_paths = [
+        "userauth/static/images/Elephant Tank & InnovateX - Idea Submit.pdf",
+        "userauth/static/images/Elephant Tank & InnovateX - project.pptx",
+    ]
+    
+    for file_path in file_paths:
+        if os.path.exists(file_path):  # Check if the file exists
+            try:
+                email.attach_file(file_path)
+            except Exception as e:
+                print(f"Error attaching file {file_path}: {e}")
+        else:
+            print(f"File not found: {file_path}")
+
+    # Send email
     try:
-        send_mail(subject, '', from_email, to_email,
-                  fail_silently=False, html_message=message)
+        email.send(fail_silently=False)
     except Exception as e:
         print(f"Error sending email: {e}")
         return False

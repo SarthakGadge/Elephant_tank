@@ -12,7 +12,7 @@ from userauth.models import Student
 from .serializers import StudentRegistration
 from userauth.utils import approval_mail, project_approved, investor_mail_for_approval
 from form.models import Applicant
-
+from investor.models import InvestorInterest      
 
 
 class ApproveInvestors(APIView):
@@ -244,6 +244,12 @@ class AdminDashboard(APIView):
         others_count = IdeaSubmission.objects.filter(project_type='Others').count()
         
         applicants = Applicant.objects.count()
+        
+        technology = IdeaSubmission.objects.filter(project_type='Technology').count()
+        
+        pharmacy = IdeaSubmission.objects.filter(project_type='Pharmacy').count()   
+        
+        interested_investor_count = InvestorInterest.objects.count()
 
         return Response({
             "single_participant_count": single_count,
@@ -262,5 +268,8 @@ class AdminDashboard(APIView):
             "Entertainment and Media": entertainment_media_count,
             "Agriculture and Food": agriculture_food_count,
             "Fashion and Lifestyle": fashion_lifestyle_count,
-            "Others": others_count
+            "Technology": technology,
+            "Pharmacy": pharmacy,
+            "Others": others_count,
+            "interested_investor_count": interested_investor_count
         })
